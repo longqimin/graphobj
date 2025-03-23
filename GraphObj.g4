@@ -2,7 +2,7 @@ grammar GraphObj;
 
 Name: ~[{} \t\r\n,]+;
 WS: [ \t\r\n,]* -> skip;
-Attr : '[' .* ']' ;
+Attr : ' '* '[' .* ']' ;
 
 graph : WS? Name Attr? WS? '{' graph* '}';
 

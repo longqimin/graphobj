@@ -12,7 +12,9 @@ import (
 )
 
 var (
-	outputfile string
+	outputFile string
+	d2Theme    string
+	d2Layout   string
 	verbose    bool
 )
 
@@ -54,12 +56,16 @@ func (l *GraphListener) ExitGraph(ctx *parser.GraphContext) {
 }
 
 func main() {
-	pflag.StringVarP(&outputfile, "output", "o", "", "output file")
+	pflag.StringVarP(&outputFile, "output", "o", "", "output file")
+	pflag.StringVarP(&d2Theme, "theme", "t", "0", "d2 theme ID(default: 0). check available theme using: `d2 themes`")
+	pflag.StringVarP(&d2Layout, "layout", "l", "elk", "d2 layout(default: elk). check available layout using: `d2 layout`")
 	pflag.BoolVarP(&verbose, "verbose", "v", false, "verbose output")
 
 	pflag.Usage = func() {
 		fmt.Fprintf(os.Stderr, "Usage of %s input [flags]:\n", os.Args[0])
-		fmt.Fprintf(os.Stderr, "-o, --output string	output filename\n")
+		fmt.Fprintf(os.Stderr, "  -o, --output string	output filename\n")
+		fmt.Fprintf(os.Stderr, "  -t, --theme string	d2 theme ID(default: 0). check available theme using: `d2 themes`\n")
+		fmt.Fprintf(os.Stderr, "  -l, --layout string	d2 layout(default: elk). check available layout using: `d2 layout`\n")
 	}
 
 	// 解析命令行标志
@@ -67,7 +73,7 @@ func main() {
 
 	// 获取位置参数
 	positionArgs := pflag.Args()
-	if len(positionArgs) == 0 || len(outputfile) == 0 {
+	if len(positionArgs) == 0 || len(outputFile) == 0 {
 		pflag.Usage()
 		return
 	}
@@ -98,7 +104,7 @@ func main() {
 	if verbose {
 		fmt.Printf("parse GraphObject:\n%s", listener.d.String())
 	}
-	listener.d.render(outputfile, verbose)
+	listener.d.render(d2Theme, d2Layout, outputFile, verbose)
 
 	// fmt.Println(tree.ToStringTree(nil, parser))
 }

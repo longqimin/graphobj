@@ -1,14 +1,28 @@
 # graphobj
 
-Define graph like Pseudo Functions.
+Define Graph like Pseudo Functions. Then draw it using [D2](https://d2lang.com/).
 
-## Example
-
-the following Pseudo Function describes the implementation of `main()` in `main.go`.
+## Install
 
 ```
-main [shape=box, color="#00FF00", style=filled, fillcolor="#87CEFA"]
-{
+// D2
+curl -fsSL https://d2lang.com/install.sh | sh -s --
+
+// antlr
+brew install antlr
+
+// graphobj
+go install github.com/longqimin/graphobj
+```
+
+## Usage
+
+### define Graph Objects like pseudo functions
+
+`main.d2.obj` describes the implementation of `main()` in `graphobj/main.go` as following:
+
+```
+main {
     os.ReadFile(inputfile){}
 
     antlr.NewInputStream{}
@@ -21,11 +35,15 @@ main [shape=box, color="#00FF00", style=filled, fillcolor="#87CEFA"]
         ExitGraph{}
     }
 
-    render(outputfile)
+    render(outputfile){}
 }
 ```
 
-the `main` node attached `dot` [Node Attributes](https://graphviz.org/docs/nodes/):
-`main [shape=box, color="#00FF00", style=filled, fillcolor="#87CEFA"]`
+### draw the graph
 
-![main.png](main.png)
+```
+graphobj main.d2.obj -o main.svg
+```
+
+output `main.svg`:
+![main.svg](main.svg)

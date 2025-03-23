@@ -37,14 +37,10 @@ func (g *graph) addNode(name, attr string) {
 	g.nodes = append(g.nodes, node{name, attr})
 }
 func (g *graph) String() string {
-	content := "subgraph " + g.name + "{\n"
-	for _, n := range g.nodes {
-		content += n.String()
-	}
+	content := ""
 	for _, e := range g.edges {
 		content += e.String()
 	}
-	content += "}\n"
 	return content
 }
 
@@ -57,29 +53,28 @@ func (d *Dot) addGraph(g *graph) {
 }
 
 func (d *Dot) String() string {
-	content := "digraph {\n"
+	content := ""
 	for _, g := range d.graphs {
 		content += g.String()
 	}
-	content += "}\n"
 	return content
 }
 
-func (d *Dot) render(filename string, verbose bool) {
-	// 生成 DOT 文件
-	dotfile := filename + ".dot"
+func (d *Dot) render(theme, layout, filename string, verbose bool) {
+	// 生成 D2 文件
+	d2File := filename + ".d2"
 	if verbose {
-		fmt.Printf("generate .dot: %s\n", dotfile)
+		fmt.Printf("generate .d2: %s\n", d2File)
 	}
-	if err := os.WriteFile(dotfile, []byte(d.String()), 0644); err != nil {
+	if err := os.WriteFile(d2File, []byte(d.String()), 0644); err != nil {
 		panic(err)
 	}
 
-	// 调用 Graphviz 渲染图像
+	// D2渲染图像
 	if verbose {
-		fmt.Printf("exec: dot -Tpng %s -o %s\n", dotfile, filename)
+		fmt.Printf("exec: d2 --theme %s --layout %s %s %s\n", theme, layout, d2File, filename)
 	}
-	cmd := exec.Command("dot", "-Tpng", dotfile, "-o", filename)
+	cmd := exec.Command("d2", "--theme", theme, "--layout", layout, d2File, filename)
 	if err := cmd.Run(); err != nil {
 		panic(err)
 	}

@@ -1,5 +1,4 @@
-main [shape=box, color="#00FF00", style=filled, fillcolor="#87CEFA"]
-{
+main {
     os.ReadFile(inputfile){}
 
     antlr.NewInputStream{}
@@ -12,5 +11,5 @@ main [shape=box, color="#00FF00", style=filled, fillcolor="#87CEFA"]
         ExitGraph{}
     }
 
-    render(outputfile)
+    render(outputfile){}
 }
