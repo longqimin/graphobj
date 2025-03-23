@@ -65,7 +65,7 @@ func (d *Dot) String() string {
 	return content
 }
 
-func (d *Dot) render(filename string, verbose bool) {
+func (d *Dot) render(filetype, filename string, verbose bool) {
 	// 生成 DOT 文件
 	dotfile := filename + ".dot"
 	if verbose {
@@ -77,9 +77,9 @@ func (d *Dot) render(filename string, verbose bool) {
 
 	// 调用 Graphviz 渲染图像
 	if verbose {
-		fmt.Printf("exec: dot -Tpng %s -o %s\n", dotfile, filename)
+		fmt.Printf("exec: dot -T%s %s -o %s\n", filetype, dotfile, filename)
 	}
-	cmd := exec.Command("dot", "-Tpng", dotfile, "-o", filename)
+	cmd := exec.Command("dot", fmt.Sprintf("-T%s", filetype), dotfile, "-o", filename)
 	if err := cmd.Run(); err != nil {
 		panic(err)
 	}

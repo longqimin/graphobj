@@ -28,4 +28,4 @@ main [shape=box, color="#00FF00", style=filled, fillcolor="#87CEFA"]
 the `main` node attached `dot` [Node Attributes](https://graphviz.org/docs/nodes/):
 `main [shape=box, color="#00FF00", style=filled, fillcolor="#87CEFA"]`
 
-![main.png](main.png)
+![main.svg](main.svg)
