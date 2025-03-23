@@ -1,0 +1,16 @@
+main [shape=box, color="#00FF00", style=filled, fillcolor="#87CEFA"]
+{
+    os.ReadFile(inputfile){}
+
+    antlr.NewInputStream{}
+    parser.NewGraphObjLexer{}
+    antlr.NewCommonTokenStream{}
+    parser.NewGraphObjParser{}
+
+    antlr.ParseTreeWalkerDefault.Walk(){
+        EnterGraph{}
+        ExitGraph{}
+    }
+
+    render(outputfile)
+}
