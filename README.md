@@ -1,5 +1,7 @@
 # graphobj
 
+<img align="left" width="80px" height="50px" src="avatar.png">
+
 Define Graph like Pseudo Functions. Then draw it using [D2](https://d2lang.com/).
 
 ## Install
